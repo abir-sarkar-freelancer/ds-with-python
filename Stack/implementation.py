@@ -21,7 +21,7 @@ class Stack:
     
     def get_stack(self):
         return self.stack
-      
+
       
 if __name__ == "__main__":
     # simple application
@@ -36,4 +36,4 @@ if __name__ == "__main__":
         
         return rev_string_output
 
-    rev_string_stack("Abir")
+    print(rev_string_stack("Abir"))
