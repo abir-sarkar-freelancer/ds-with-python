@@ -34,6 +34,6 @@ if __name__ == "__main__":
         while not new_stack.is_empty():
             rev_string_output += new_stack.pop()
         
-    return rev_string_output
+        return rev_string_output
 
     rev_string_stack("Abir")
