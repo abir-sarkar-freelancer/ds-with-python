@@ -1,3 +1,4 @@
+
 # First we need to define the node class
 # this node class constructor will initiate new nodes 
 # that will be added to the linked list
@@ -9,8 +10,8 @@ class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
-        
-        
+
+
 # Now We are going to define the LinkedList class
 # it will have one instance variable to be precise 
 # and that is head
@@ -20,21 +21,12 @@ class SinglyLinkedList:
         self.head = None
         
     # the value of head is initially None
-    # Now we need to define 
-    # an instance method to append 
-    # node to the linked list
+    # Now we need to define an instance method to append node to the linked list
     
     def append(self, data):
-        # we are going to append 
-        # this node to the list
-
-        new_node = Node(data) 
-
-        # but first we need to check 
-        # whether the list is empty or not
-        # it can be done simply by checking 
-        # if head is point to None or not
-
+        new_node = Node(data) # we are going to append this node to the list
+        # but first we need to check whether the list is empty or not
+        # it can be done simply by checking if head is point to None or not
         if self.head is None:
             # list is empty
             self.head = new_node
@@ -88,7 +80,164 @@ class SinglyLinkedList:
         prev_node.next = current_node.next
         current_node = None
         
-        return f"{key} deleted"   
+        return f"{key} deleted"
+    
+    def delete_at_pos(self, pos):
+        current_node = self.head
+        
+        if pos == 0:
+            self.head = current_node.next
+            current_node = None
+            return
+        
+        index = 1
+        prev = None
+        while index <= pos and current_node:
+            prev = current_node
+            current_node = current_node.next
+            index += 1
+        
+        if current_node is None:
+            return f"No element found at {pos}"
+        
+        prev.next = current_node.next
+        current_node = None
+        
+        return f"Element at {pos} has been deleted" 
+            
+        
+        
+    def len_iterative(self):
+        current_node = self.head
+        count = 0
+        while current_node:
+            count += 1
+            current_node = current_node.next
+            
+        return count
+    
+    
+    def len_recursive(self, node):
+        # base case
+        if node is None:
+            return 0
+        
+        return 1 + self.len_recursive(node.next)
+    
+    def swap_nodes(self, key1, key2):
+
+        if key1 == key2:
+            return
+        current_node = self.head
+        
+        prev_node = None
+        prev_node_key_1 = None
+        prev_node_key_2 = None
+        node_key_1 = None
+        node_key_2 = None
+        
+        flag = 0
+        
+        while current_node:
+            
+            if current_node.data == key1:
+                # print("GOT Key 1")
+                prev_node_key_1 = prev_node
+                # print(prev_node_key_1.data)
+                node_key_1 = current_node
+                # print(node_key_1.data)
+                flag += 1
+
+                if flag >= 2:
+                    # print("Out 1")
+                    break
+                
+            if current_node.data == key2:
+                # print("GOT Key 2")
+                prev_node_key_2 = prev_node
+                # print(prev_node_key_2.data)
+                node_key_2 = current_node
+                # print(node_key_2.data)
+                flag += 1
+
+                if flag >= 2:
+                    # print("Out 2")
+                    break
+                
+            prev_node = current_node
+            current_node = current_node.next
+            
+
+        if not node_key_1 or not node_key_2:
+            return
+
+        
+        if prev_node_key_1:
+            prev_node_key_1.next = node_key_2
+        else:
+            self.head = node_key_2
+
+        if prev_node_key_2:
+            prev_node_key_2.next = node_key_1
+        else:
+            self.head = node_key_1
+
+        node_key_1.next, node_key_2.next = node_key_2.next, node_key_1.next
+
+        return "Swap Done"
+        
+    def swap_nodes_alt(self, key1, key2):
+        if key1 == key2:
+            return
+
+        current_node = self.head
+
+        prev_node = None
+        node_key_1 = None
+        node_key_2 = None
+        
+        flag = 0
+
+        while current_node:
+            
+            if current_node.data == key1:
+                # print("GOT Key 1")
+                # prev_node_key_1 = prev_node
+                # print(prev_node_key_1.data)
+                node_key_1 = current_node
+                # print(node_key_1.data)
+                flag += 1
+
+                if flag >= 2:
+                    # print("Out 1")
+                    break
+                
+            if current_node.data == key2:
+                # print("GOT Key 2")
+                # prev_node_key_2 = prev_node
+                # print(prev_node_key_2.data)
+                node_key_2 = current_node
+                # print(node_key_2.data)
+                flag += 1
+
+                if flag >= 2:
+                    # print("Out 2")
+                    break
+                
+            prev_node = current_node
+            current_node = current_node.next
+
+
+        if not node_key_1 or not node_key_2:
+            return
+
+        node_key_1.data, node_key_2.data = node_key_2.data, node_key_1.data
+
+        return "Swap Done"
+
+
+        
+            
     
     # let's define a method to print the entire List
     def show_items(self):
